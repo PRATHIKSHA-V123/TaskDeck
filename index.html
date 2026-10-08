@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-accent="violet">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TaskDeck is a simple task management app for organizing tasks, priorities, categories, and due dates.">
+  <title>TaskDeck – My Tasks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <aside class="side">
+    <div class="side-top">
+      <div class="brand"><span class="logo">✓</span>TaskDeck</div>
+      <button id="themeBtn" class="theme-btn" aria-label="Toggle dark mode" type="button">☾</button>
+    </div>
+
+    <div class="ring" role="img" aria-label="Today's progress">
+      <div class="ring-inner">
+        <strong id="progressText">0%</strong>
+        <small>Today's Progress</small>
+      </div>
+    </div>
+    <div class="side-bar"><div id="progressFill"></div></div>
+
+    <div class="stats">
+      <div class="stat"><span id="totalCount">0</span><p>Total</p></div>
+      <div class="stat"><span id="activeCount">0</span><p>Active</p></div>
+      <div class="stat"><span id="completedCount">0</span><p>Done</p></div>
+    </div>
+
+    <nav class="filters" aria-label="Filter tasks">
+      <button type="button" class="filter-btn active" data-filter="all">All tasks</button>
+      <button type="button" class="filter-btn" data-filter="active">Active</button>
+      <button type="button" class="filter-btn" data-filter="completed">Completed</button>
+    </nav>
+
+    <div class="swatches" role="group" aria-label="Accent colour">
+      <button type="button" class="swatch" data-accent="blue" style="--s1:#2563eb;--s2:#0ea5e9" aria-label="Ocean"></button>
+      <button type="button" class="swatch" data-accent="violet" style="--s1:#6d4aff;--s2:#d946ef" aria-label="Violet"></button>
+      <button type="button" class="swatch" data-accent="emerald" style="--s1:#059669;--s2:#2dd4bf" aria-label="Emerald"></button>
+      <button type="button" class="swatch" data-accent="sunset" style="--s1:#f43f5e;--s2:#f59e0b" aria-label="Sunset"></button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="main-head">
+      <div>
+        <p id="todayDate" class="date">Today</p>
+        <h1>My Tasks</h1>
+        <p class="tagline">Plan your day. Stay organized.</p>
+      </div>
+    </header>
+
+    <section class="panel add" aria-label="Add a task">
+      <div class="input-row">
+        <input type="text" id="taskInput" placeholder="What needs to be done?" maxlength="120" autocomplete="off" aria-label="Task name">
+        <button id="addBtn" type="button">+ Add Task</button>
+      </div>
+      <div class="options-row">
+        <select id="priorityInput" aria-label="Priority">
+          <option value="low">Low Priority</option>
+          <option value="medium" selected>Medium Priority</option>
+          <option value="high">High Priority</option>
+        </select>
+        <select id="categoryInput" aria-label="Category">
+          <option value="Personal">Personal</option>
+          <option value="College">College</option>
+          <option value="Work">Work</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="date" id="dateInput" aria-label="Due date">
+      </div>
+    </section>
+
+    <section class="panel" aria-label="Task list">
+      <div class="toolbar">
+        <div class="search-box">
+          <span aria-hidden="true">⌕</span>
+          <input type="text" id="searchInput" placeholder="Search tasks..." autocomplete="off" aria-label="Search tasks">
+        </div>
+        <select id="sortSelect" aria-label="Sort tasks">
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+          <option value="priority">Priority</option>
+          <option value="date">Due Date</option>
+        </select>
+      </div>
+
+      <div class="section-title">
+        <h2>Tasks</h2>
+        <span id="remainingText">0 remaining</span>
+      </div>
+
+      <ul id="taskList"></ul>
+
+      <div id="emptyState" class="empty-state">
+        <div class="empty-icon" aria-hidden="true">✓</div>
+        <h3>No tasks found</h3>
+        <p>Add a task to start organizing your day.</p>
+      </div>
+
+      <div class="card-footer">
+        <span>Stay focused. Get things done.</span>
+        <button id="clearCompleted" type="button">Clear completed</button>
+      </div>
+    </section>
+  </main>
+
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<div id="editModal" class="modal" aria-hidden="true">
+  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+    <div class="modal-header">
+      <h2 id="editTitle">Edit Task</h2>
+      <button id="closeModal" type="button" aria-label="Close">×</button>
+    </div>
+    <label for="editTaskInput">Task</label>
+    <input type="text" id="editTaskInput" maxlength="120">
+    <label for="editPriority">Priority</label>
+    <select id="editPriority">
+      <option value="low">Low Priority</option>
+      <option value="medium">Medium Priority</option>
+      <option value="high">High Priority</option>
+    </select>
+    <label for="editCategory">Category</label>
+    <select id="editCategory">
+      <option value="Personal">Personal</option>
+      <option value="College">College</option>
+      <option value="Work">Work</option>
+      <option value="Other">Other</option>
+    </select>
+    <label for="editDate">Due Date</label>
+    <input type="date" id="editDate">
+    <button id="saveEdit" class="save-btn" type="button">Save Changes</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
